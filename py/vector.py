@@ -194,7 +194,7 @@ class Vector(object):   #
     def __pos__(self):
         return self
     def __neg__(self):
-        return Vector.zero(self.dimension) - Vector(self)
+        return Vector.zero(self.dimension) - self
     
     def __rsub__(self, other):
         """ Called if 4 - self for instance """
