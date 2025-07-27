@@ -1,7 +1,8 @@
+import includes     # for global vars
 from includes import *
 
 
-class Vector(object):   # 
+class Vector(object):
     """
         Vector of any dimension greater or equal to 2.
         Modified class from Mat Leonard's on Github: https://gist.github.com/mcleonard/5351452

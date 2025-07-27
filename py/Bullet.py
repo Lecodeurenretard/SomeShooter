@@ -37,6 +37,7 @@ class Bullet:
 			if target is None:
 				continue
 			if self._mask.overlap(target._mask, target.calculate_offset(self._pos).tuple_2D) is not None:	# Check for collisions with a target
+				includes.score += 20
 				target.die()
 				self._request_destruction = True
 	

@@ -24,6 +24,12 @@ def draw_frame() -> None:
 			continue
 		target.draw(window)
 	
+	window.blit(
+		# 
+		pygame.font.SysFont(None, 25).render(f"score: {includes.score}", False, 0x000),
+		(10, 5)
+	)
+	
 	pygame.display.flip()	# let the frame to be displayed to the screen
 
 set_timer()
