@@ -9,6 +9,9 @@ class Player:
 	@property
 	def _mouse_dir(self) -> Vector:
 		direction = self._pos - Vector(*pygame.mouse.get_pos())
+
+		if direction == Vector.zero(2):
+			return Vector(0, 1)
 		return direction.normalize()	# so the norm is 1
 
 

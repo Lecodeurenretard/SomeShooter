@@ -212,3 +212,6 @@ class Vector(object):
         
     def __repr__(self):
         return str(self.values)
+    
+    def __eq__(self, vec: 'Vector') -> bool:
+        return self.values == vec.values
