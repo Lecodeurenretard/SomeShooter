@@ -5,6 +5,7 @@ class Player:
 		self._pos	: Vector = Vector(WIN_WIDTH // 2, WIN_HEIGHT // 2)	# preceding underscore to mark as private
 		self._sprite : pygame.Surface = pygame.image.load("../img/character.png")
 		self._active_bullets : list[Bullet] = []
+		self._dim : Vector = Vector(self._sprite.get_bounding_rect().width, self._sprite.get_bounding_rect().height)
 	
 	@property
 	def _mouse_dir(self) -> Vector:
@@ -13,8 +14,7 @@ class Player:
 		if direction == Vector.zero(2):
 			return Vector(0, 1)
 		return direction.normalize()	# so the norm is 1
-
-
+	
 	def draw(self, surface : pygame.Surface) -> None:
 		for bullet in self._active_bullets:
 			bullet.draw(surface)

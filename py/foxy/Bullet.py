@@ -1,34 +1,36 @@
 from Target import *
 
 class Bullet:
-	_SPEED : int = 15
+	_WIDTH = 1
+	_HEIGHT = 75
+	_SPEED = 15
+	
 	def __init__(self, dir : Vector, pos : Vector):
-		assert(compare_floats(dir.norm(), 1)), "Normalize the direction vector"
-		
+		assert(compare_floats(dir.norm(), 1)), "Normalize the direction vector"		# always a pleasure to compare floats
+
 		self._direction = dir
 		self._pos = pos
 		self._request_destruction : bool = False
 		
-		self._sprite : pygame.Surface = pygame.image.load("../img/flame.png")
-		
-		# Pour que les flammes ne soient pas trop grosses
-		self._sprite = pygame.transform.scale(self._sprite, (90, 90))
-	
+		self._sprite : pygame.Surface = pygame.Surface((Bullet._WIDTH, Bullet._HEIGHT), pygame.SRCALPHA)
+		self._sprite.fill((0, 255, 243, 255))
+		self._sprite = rotate_img_center(self._sprite, self._centered_pos.tuple_2D, self._direction.argument())[0]
+
 	@property
 	def _mask(self) -> pygame.Mask:	# access with self._mask
 		return pygame.mask.from_surface(self._sprite)
-	
+
 	@property
 	def to_destroy(self) -> bool:
 		"""If the parent object should destroy the bullet."""
 		bad_x : bool = not 0 <= self._pos.x < WIN_WIDTH
 		bad_y : bool = not 0 <= self._pos.y < WIN_HEIGHT
-	
+
 		return self._request_destruction or bad_x or bad_y
 	
 	@property
 	def _centered_pos(self) -> Vector:
-		return self._pos -+Vector(self._sprite.get_rect().width, self._sprite.get_rect().height)/2
+		return self._pos - Vector(self._sprite.get_rect().width, self._sprite.get_rect().height) / 2
 	
 	def _handle_target_collision(self) -> None:
 		for target in Target.get_target_list():

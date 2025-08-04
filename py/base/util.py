@@ -1,4 +1,4 @@
-from vector import *
+from globals import *
 
 def rotate_img(image : pygame.Surface, pos : tuple[int, int], pivot_center_pos : tuple[float, float], angle : float) -> tuple[pygame.Surface, pygame.rect.Rect]:
 	"""original function at https://stackoverflow.com/questions/4183208/how-do-i-rotate-an-image-around-its-center-using-pygame#upvote-btn-54714144 """

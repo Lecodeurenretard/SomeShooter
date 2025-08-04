@@ -41,15 +41,17 @@ while True:
 			pygame.quit()
 			exit()
 		
+		if event.type == pygame.MOUSEBUTTONDOWN:
+			player.shoot()
 		
 		if event.type == EVENT_CREATE_TARGET:	# custom events: fires when it's time to create a new target
-			Target.spawn_at_random_pos()
+			Foxy.spawn_at_random_pos()
 			set_timer()
 	
-	# if pygame.mouse.get_pressed()[0] or pygame.mouse.get_pressed()[2]:
-	if True in pygame.mouse.get_pressed():
-		player.shoot()
 	player.update()
+	for target in Target.target_list:
+		if target is not None:
+			target.update(player.mask)
 	
 	draw_frame()
 	clock.tick(60)

@@ -100,8 +100,8 @@ class Foxy(Target):
 
 		self._speed : float = 5
 
-		direction = Vector(0, 10).rotate(self._pos.argument())
-		while not is_in_bounds(self._pos.tuple_2D):
+		direction = Vector(0, 100).rotate(self._pos.argument())
+		while is_in_bounds(self._pos.tuple_2D):
 			self._pos += direction
 	
 	@staticmethod
@@ -125,7 +125,7 @@ class Foxy(Target):
 	
 	def update(self, player_mask : pygame.Mask) -> None:
 		dir : Vector = (SCREEN_CENTER - self._centered_pos).normalize()
-		self._pos += dir * self._speed	# type: ignore # Returns an int only the two factors are vectors
+		self._pos += dir * self._speed	# type: ignore # Returns an int only if the two factors are vectors
 		
 		if self._mask.overlap(player_mask, self.calculate_offset(SCREEN_CENTER).tuple_2D):
 			Foxy.jumpscare()
