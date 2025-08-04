@@ -10,7 +10,7 @@ class Target:
 	ID_WAITING_GARBAGE_COLLECTOR : int = -1
 	
 	def __init__(self, pos : Vector) -> None:
-		self._sprite : pygame.Surface = pygame.image.load("img/target.png")
+		self._sprite : pygame.Surface = pygame.image.load("../img/target.png")
 		self._sprite = pygame.transform.scale_by(self._sprite, .5)  # in the scratch project, their size is also halved
 		
 		self._mask : pygame.Mask = pygame.mask.from_surface(self._sprite) # https://www.reddit.com/r/pygame/comments/oiknmp/collision_with_rotated_rectangles/
@@ -65,11 +65,11 @@ class Target:
 
 	@property
 	def _centered_pos(self) -> Vector:
-		return self._pos - self._dimensions/2
+		return self._pos + self._dimensions/2
 	
 	@_centered_pos.setter
 	def _centered_pos(self, val : Vector) -> None:
-		self._pos = val + self._dimensions/2
+		self._pos = val - self._dimensions/2
 	
 	def _center(self) -> None:
 		self._centered_pos = self._pos

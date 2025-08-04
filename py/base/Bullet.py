@@ -30,7 +30,7 @@ class Bullet:
 	
 	@property
 	def _centered_pos(self) -> Vector:
-		return self._pos - Vector(self._sprite.get_rect().width, self._sprite.get_rect().height)/2
+		return self._pos + Vector(self._sprite.get_rect().width, self._sprite.get_rect().height)/2
 	
 	def _handle_target_collision(self) -> None:
 		for target in Target.get_target_list():

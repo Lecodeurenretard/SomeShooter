@@ -3,7 +3,7 @@ from Bullet import *
 class Player:
 	def __init__(self):
 		self._pos	: Vector = Vector(WIN_WIDTH // 2, WIN_HEIGHT // 2)	# preceding underscore to mark as private
-		self._sprite : pygame.Surface = pygame.image.load("img/character.png")
+		self._sprite : pygame.Surface = pygame.image.load("../img/character.png")
 		self._active_bullets : list[Bullet] = []
 	
 	@property
