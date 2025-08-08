@@ -1,20 +1,18 @@
 from Target import *
 
 class Bullet:
-	_WIDTH = 1
-	_HEIGHT = 75
 	_SPEED = 15
 	
 	def __init__(self, dir : Vector, pos : Vector):
+		assert(pygame.image.get_extended()), "Your pygame does not include the extended images formats."
 		assert(compare_floats(dir.norm(), 1)), "Normalize the direction vector"		# always a pleasure to compare floats
 
 		self._direction = dir
 		self._pos = pos
 		self._request_destruction : bool = False
 		
-		self._sprite : pygame.Surface = pygame.Surface((Bullet._WIDTH, Bullet._HEIGHT), pygame.SRCALPHA)
-		self._sprite.fill((0, 255, 243, 255))
-		self._sprite = rotate_img_center(self._sprite, self._centered_pos.tuple_2D, self._direction.argument())[0]
+		self._sprite : pygame.Surface = pygame.image.load("../img/bullet.svg")
+		self._sprite = rotate_img_center(self._sprite, self._centered_pos.tuple_2D, self._direction.argument() - 90)[0]
 
 	@property
 	def _mask(self) -> pygame.Mask:	# access with self._mask

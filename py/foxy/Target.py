@@ -1,6 +1,5 @@
 from util import *
 
-Foxy : type
 class Target:
 	_TARGET_LIST_CHUNK_SIZE : int = 10
 	target_list : 'list[Target|None]' = [None for _ in range(_TARGET_LIST_CHUNK_SIZE)]
@@ -63,7 +62,7 @@ class Target:
 	def _dimensions(self) -> Vector:
 		rect = self._sprite.get_bounding_rect()
 		return Vector(rect.width, rect.height)
-
+	
 	@property
 	def _centered_pos(self) -> Vector:
 		return self._pos + self._dimensions/2
@@ -93,19 +92,25 @@ class Target:
 		return self._pos - other_point
 
 class Foxy(Target):
+	_last_spawn_pos : Vector = SCREEN_CENTER	# Same behavior in Scratch
+	
 	def __init__(self, pos : Vector) -> None:
 		super().__init__(pos)
 		self._sprite : pygame.Surface = pygame.image.load("../img/foxy.png")
 		self._sprite = pygame.transform.scale(self._sprite, (90, 90))
-
+		
 		self._speed : float = 5
-
-		direction = Vector(0, 100).rotate(self._pos.argument())
+		
+		# Math from the Scratch version
+		direction = pos - Foxy._last_spawn_pos
+		direction = direction.normalize() * 100
 		while is_in_bounds(self._pos.tuple_2D):
 			self._pos += direction
+		
+		Foxy._last_spawn_pos = self._pos
 	
 	@staticmethod
-	def spawn_at_random_pos() -> 'Target':
+	def spawn_at_random_pos() -> Target:
 		pos : Vector = Vector.create_random_pos_in_window()
 		
 		if randint(1, 10) == 1:
@@ -118,7 +123,7 @@ class Foxy(Target):
 		pygame.mixer_music.set_volume(1)
 		pygame.mixer_music.play()
 		
-		play_gif("../img/jumpscare/frame_", (0, 0, WIN_WIDTH, WIN_HEIGHT), .1, 0, 13)
+		play_gif("../img/jumpscare/frame_", (0, 0, WIN_WIDTH, WIN_HEIGHT), .05, 0, 13)
 		sleep(1)
 		pygame.quit()
 		exit()

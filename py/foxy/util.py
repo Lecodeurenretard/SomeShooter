@@ -37,13 +37,13 @@ def play_gif(
 	The dest parameter is directly passed to window.blit()..
 	"""
 	
-	background = window
+	background = pygame.Surface.copy(window)	# I love implicit references!
 	for i in range(begin, end+1):
 		window.blit(background, (0, 0))
 		
 		image = pygame.image.load(f"{base_name}{i}.png")
 		image = pygame.transform.scale(image, (dest[2], dest[3]))
 		window.blit(image, dest)
-
+		
 		pygame.display.flip()
 		sleep(time_interval)
